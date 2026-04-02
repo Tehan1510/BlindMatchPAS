@@ -1,0 +1,53 @@
+@using BlindMatchPAS.Models
+@model List<ProjectViewModel>
+
+@{
+    ViewBag.Title = "Blind Review Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Blind Review Dashboard</h2>
+    <p class="text-muted">Anonymous projects only — student identity is hidden</p>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <input type="text" id="search" class="form-control" placeholder="Search projects..." onkeyup="filterCards()">
+        </div>
+    </div>
+
+    <div class="row" id="projectCards">
+        @foreach (var p in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5>@p.Title</h5>
+                        <p class="text-muted">@p.Abstract.Substring(0, Math.Min(120, p.Abstract.Length))...</p>
+                        <div class="mb-3">
+                            <span class="badge bg-info">@p.ResearchArea</span>
+                            @foreach (var tech in p.TechStack.Split(','))
+                            {
+                                <span class="badge bg-secondary">@tech.Trim()</span>
+                            }
+                        </div>
+                        <a href="/Supervisor/ConfirmMatch/@p.Id" class="btn btn-success w-100">
+                            <i class="fas fa-handshake"></i> Express Interest
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function filterCards() {
+        let input = document.getElementById('search').value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            let title = card.querySelector('h5').textContent.toLowerCase();
+            card.parentElement.style.display = title.includes(input) ? '' : 'none';
+        });
+    }
+</script>

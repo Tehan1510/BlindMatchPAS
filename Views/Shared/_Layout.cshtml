@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blind-Match PAS - @ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --nsbm-blue: #003087; --nsbm-green: #00b140; }
+        .navbar { background-color: var(--nsbm-blue); }
+        .sidebar { background-color: #f8f9fa; min-height: 100vh; }
+        .card-header { background-color: var(--nsbm-green); color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/"><i class="fas fa-link"></i> Blind-Match PAS</a>
+            <span class="badge bg-success">@ViewBag.UserRole</span>
+            <div class="ms-auto d-flex align-items-center">
+                <span class="text-white me-3">@ViewBag.UserName</span>
+                <a href="/Account/Logout" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar p-3 border-end" style="width: 260px;">
+            <ul class="nav flex-column">
+                @if (ViewBag.UserRole == "Supervisor")
+                {
+                    <li class="nav-item"><a href="/Supervisor" class="nav-link active"><i class="fas fa-eye"></i> Blind Review</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i> My Expertise</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-history"></i> My Matches</a></li>
+                }
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1 p-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
