@@ -1,11 +1,10 @@
-namespace BlindMatchPAS.Models
+﻿namespace BlindMatchPAS.Models
 {
     public class ProjectViewModel
     {
         public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Abstract { get; set; } = string.Empty;
-        public string ResearchArea { get; set; } = string.Empty;
-        public string TechStack { get; set; } = string.Empty;
+        public string Title { get; set; }
+        public string Abstract { get; set; }
+        public string ResearchArea { get; set; }
     }
 }

@@ -1,31 +1,46 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-  margin-bottom: 60px;
+    font-family: 'Inter', sans-serif;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.btn-pas-green {
+    background-color: #00a651;
+    border-color: #00a651;
+    color: white;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .btn-pas-green:hover {
+        background-color: #008f45;
+        border-color: #008f45;
+        color: white;
+    }
+
+.login-page-body {
+    background-color: #1e2532;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
 }
+
+.login-card-custom {
+    background: #ffffff;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.project-card-custom {
+    border-radius: 16px !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+}
+
+    .project-card-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+    }

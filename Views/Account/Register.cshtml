@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Create Account"; Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PAS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="login-page-body">
+    <div class="login-card-custom p-4" style="max-width: 450px; width: 100%;">
+        <a asp-controller="Home" asp-action="Index" class="text-muted text-decoration-none small mb-3 d-inline-block"><i class="bi bi-arrow-left"></i> Back to Welcome</a>
+        <div class="text-center mb-4 mt-2">
+            <h2 class="fw-bold"><i class="bi bi-person-plus text-success"></i> Create Account</h2>
+        </div>
+        <form asp-controller="Account" asp-action="Register" method="post" id="registerForm">
+            <input type="hidden" name="Email" id="FinalEmail" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Full Name</label>
+                <input type="text" name="FullName" class="form-control bg-light" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">University Email</label>
+                <div class="input-group">
+                    <input type="text" id="UsernameInput" class="form-control bg-light" placeholder="username" required>
+                    <span class="input-group-text bg-secondary text-white fw-bold">@@</span>
+                    <select id="DomainSelect" class="form-select bg-light" style="max-width: 200px;" required>
+                        <option value="student.ac.nsbm.lk">student.ac.nsbm.lk</option>
+                        <option value="superviouse.ac.nsbm.lk">superviouse.ac.nsbm.lk</option>
+                        <option value="admin.ac.nsbm.lk">admin.ac.nsbm.lk</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Password</label>
+                <input type="password" name="Password" class="form-control bg-light" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-bold">Confirm Password</label>
+                <input type="password" name="ConfirmPassword" class="form-control bg-light" required>
+            </div>
+            <button type="submit" class="btn btn-pas-green w-100 fw-bold py-2 mb-3">Register</button>
+        </form>
+    </div>
+    <script>
+            document.getElementById('registerForm').addEventListener('submit', function (e) {
+                var user = document.getElementById('UsernameInput').value.trim().replace(/\s+/g, '');
+                var domain = document.getElementById('DomainSelect').value;
+                document.getElementById('FinalEmail').value = user + '@@' + domain;
+            });
+    </script>
+</body>
+</html>

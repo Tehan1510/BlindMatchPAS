@@ -1,56 +1,66 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using BlindMatchPAS.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-public class SupervisorController : Controller
+namespace BlindMatchPAS.Controllers
 {
-    private static List<ProjectViewModel> _projects = new List<ProjectViewModel>
+    public class SupervisorController : Controller
     {
-        new ProjectViewModel 
-        { 
-            Id = 1, 
-            Title = "AI-Powered Exam Proctoring System", 
-            Abstract = "Real-time cheating detection using computer vision and deep learning...", 
-            ResearchArea = "Artificial Intelligence", 
-            TechStack = "Python, OpenCV, TensorFlow" 
-        },
-        new ProjectViewModel 
-        { 
-            Id = 2, 
-            Title = "Secure Blockchain Voting Platform", 
-            Abstract = "Decentralized voting system with end-to-end encryption...", 
-            ResearchArea = "Cybersecurity", 
-            TechStack = "Solidity, Ethereum, React" 
+        private List<ProjectViewModel> GetDummyProjects()
+        {
+            return new List<ProjectViewModel>
+            {
+                new ProjectViewModel { Id = 1, Title = "AI Traffic Optimization", Abstract = "Utilizes neural networks to predict urban traffic flow.", ResearchArea = "AI" },
+                new ProjectViewModel { Id = 2, Title = "Hotel Management System", Abstract = "Desktop application for booking and room management.", ResearchArea = "Java" },
+                new ProjectViewModel { Id = 3, Title = "E-Commerce Web Portal", Abstract = "Scalable software architecture for online retail.", ResearchArea = "Software" },
+                new ProjectViewModel { Id = 4, Title = "Secure Banking API", Abstract = "Enterprise-level API for handling secure transactions.", ResearchArea = "C#" }
+            };
         }
-    };
 
-    public IActionResult Index()
-    {
-        ViewBag.UserRole = "Supervisor";
-        ViewBag.UserName = "Dr. Amara Silva";
-        return View(_projects);
-    }
+        public IActionResult Index(string expertise = "All")
+        {
+            var allProjects = GetDummyProjects();
+            var filteredProjects = expertise == "All" ? allProjects : allProjects.Where(p => p.ResearchArea == expertise).ToList();
 
-    // GET - Show confirmation page
-    public IActionResult ConfirmMatch(int id)
-    {
-        var project = _projects.FirstOrDefault(p => p.Id == id);
-        if (project == null) return NotFound();
-        return View(project);
-    }
+            ViewBag.ActiveFilter = expertise;
+            return View(filteredProjects);
+        }
 
-    // POST - Process the confirmation
-    [HttpPost]
-    public IActionResult Confirm(int id)          // ← Different action name to avoid conflict
-    {
-        TempData["Success"] = "✅ Match Confirmed! Identity has been revealed to both parties.";
-        return RedirectToAction("Reveal", new { id = id });
-    }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var project = GetDummyProjects().FirstOrDefault(p => p.Id == id);
+            if (project == null) return NotFound();
+            return View(project);
+        }
 
-    public IActionResult Reveal(int id)
-    {
-        ViewBag.UserRole = "Supervisor";
-        ViewBag.UserName = "Dr. Amara Silva";
-        var project = _projects.FirstOrDefault(p => p.Id == id);
-        return View(project);
+        [HttpGet]
+        public IActionResult ConfirmMatch(int id)
+        {
+            var project = GetDummyProjects().FirstOrDefault(p => p.Id == id);
+            if (project == null) return NotFound();
+            return View(project);
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmMatch(int ProjectId, string ActionType)
+        {
+            TempData["SuccessMessage"] = $"Project #{ProjectId} successfully accepted! The student has been notified and identities are now revealed.";
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Settings()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Settings(string action)
+        {
+            TempData["SuccessMessage"] = "Your preferences have been successfully updated.";
+            return RedirectToAction("Index");
+        }
     }
 }

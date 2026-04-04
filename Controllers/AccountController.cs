@@ -1,38 +1,50 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class AccountController : Controller
+namespace BlindMatchPAS.Controllers
 {
-    [HttpGet]
-    public IActionResult Login()
+    public class AccountController : Controller
     {
-        return View();
-    }
+        [HttpGet]
+        public IActionResult Login() => View();
 
-    [HttpPost]
-    public IActionResult Login(string Email, string Password)
-    {
-        // TODO: Replace with real authentication later (ASP.NET Identity)
-        if (Email.Contains("@nsbm.ac.lk"))
+        [HttpPost]
+        public IActionResult Login(string Email, string Password)
         {
-            // Student
-            return RedirectToAction("Index", "Student");
-        }
-        else if (Email.Contains("supervisor") || Email.Contains("@faculty"))
-        {
-            // Supervisor
-            ViewBag.UserRole = "Supervisor";
-            ViewBag.UserName = "Dr. Amara Silva";
-            return RedirectToAction("Index", "Supervisor");
-        }
-        else
-        {
-            // Admin (for now)
-            return RedirectToAction("Index", "Admin");
-        }
-    }
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
+            {
+                ModelState.AddModelError(string.Empty, "Email and Password are required.");
+                return View();
+            }
 
-    public IActionResult Logout()
-    {
-        return RedirectToAction("Login");
+            // HARDCODED TEST: Remove before coursework submission!
+            if (Password != "12345")
+            {
+                ModelState.AddModelError(string.Empty, "Invalid password. (Use '12345' for testing)");
+                return View();
+            }
+
+            string loginEmail = Email.ToLower();
+
+            if (loginEmail.EndsWith("@student.ac.nsbm.lk")) return RedirectToAction("Index", "Student");
+            if (loginEmail.EndsWith("@superviouse.ac.nsbm.lk") || loginEmail.Contains("supervisor")) return RedirectToAction("Index", "Supervisor");
+            if (loginEmail.EndsWith("@admin.ac.nsbm.lk")) return RedirectToAction("Index", "Admin");
+
+            ModelState.AddModelError(string.Empty, "Invalid university email domain.");
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public IActionResult Register(string FullName, string Email, string Password, string ConfirmPassword)
+        {
+            if (Password != ConfirmPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Passwords do not match.");
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
     }
 }

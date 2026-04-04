@@ -1,0 +1,45 @@
+﻿@model BlindMatchPAS.Models.ProjectViewModel
+@{
+    ViewData["Title"] = "Project Details"; Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PAS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="dashboard-container" style="background-color: #f4f5f7; padding-top: 2rem;">
+    <div class="container" style="max-width: 800px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a asp-action="Index" class="btn btn-light border shadow-sm rounded-pill px-4 fw-bold text-muted"><i class="bi bi-arrow-left me-2"></i> Back to Dashboard</a>
+            <div class="bg-white px-3 py-2 rounded-pill shadow-sm border border-secondary border-opacity-25">
+                <i class="bi bi-eye-slash-fill text-muted me-2"></i><span class="fw-bold text-dark small">Author Identity Hidden</span>
+            </div>
+        </div>
+        <div class="card border-0 shadow rounded-4 p-4 p-md-5 bg-white mb-4">
+            <div class="mb-4 pb-4 border-bottom">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="badge bg-light text-dark border px-3 py-2 fs-6">@Model.ResearchArea</span>
+                    <span class="text-muted fw-bold">Project ID: #@Model.Id</span>
+                </div>
+                <h1 class="fw-bold text-dark">@Model.Title</h1>
+                <p class="text-muted mt-2"><i class="bi bi-clock-history me-1"></i> Submitted for Blind Review</p>
+            </div>
+            <div class="mb-5">
+                <h5 class="fw-bold mb-3">Project Abstract & Description</h5>
+                <p class="text-dark" style="line-height: 1.8; font-size: 1.05rem;">@Model.Abstract</p>
+                <p class="text-muted mt-3" style="line-height: 1.8;">This project aims to solve critical problems within the chosen research domain by implementing modern software engineering practices. The proposed solution will involve rigorous testing, a scalable architecture, and a user-centric design approach...</p>
+            </div>
+            <div class="bg-light rounded-4 p-4 border text-center mt-5">
+                <h5 class="fw-bold mb-2">Interested in supervising this project?</h5>
+                <p class="text-muted small mb-4">Clicking accept will take you to the final confirmation screen.</p>
+                <a asp-action="ConfirmMatch" asp-route-id="@Model.Id" class="btn btn-pas-green btn-lg px-5 rounded-pill fw-bold shadow-sm"><i class="bi bi-check-circle me-2"></i> Express Interest & Proceed</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
