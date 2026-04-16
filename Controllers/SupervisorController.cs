@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BlindMatchPAS.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,10 +10,10 @@ namespace BlindMatchPAS.Controllers
         {
             return new List<ProjectViewModel>
             {
-                new ProjectViewModel { Id = 1, Title = "AI Traffic Optimization", Abstract = "Utilizes neural networks to predict urban traffic flow.", ResearchArea = "AI" },
-                new ProjectViewModel { Id = 2, Title = "Hotel Management System", Abstract = "Desktop application for booking and room management.", ResearchArea = "Java" },
-                new ProjectViewModel { Id = 3, Title = "E-Commerce Web Portal", Abstract = "Scalable software architecture for online retail.", ResearchArea = "Software" },
-                new ProjectViewModel { Id = 4, Title = "Secure Banking API", Abstract = "Enterprise-level API for handling secure transactions.", ResearchArea = "C#" }
+                new ProjectViewModel { Id = 1, Title = "AI Traffic Optimization", Abstract = "Utilizes neural networks to predict urban traffic flow.", ResearchArea = "AI", Status = "Pending", Date = "2026-04-10" },
+                new ProjectViewModel { Id = 2, Title = "Hotel Management System", Abstract = "Desktop application for booking and room management.", ResearchArea = "Java", Status = "Pending", Date = "2026-04-12" },
+                new ProjectViewModel { Id = 3, Title = "E-Commerce Web Portal", Abstract = "Scalable software architecture for online retail.", ResearchArea = "Software", Status = "Pending", Date = "2026-04-14" },
+                new ProjectViewModel { Id = 4, Title = "Secure Banking API", Abstract = "Enterprise-level API for handling secure transactions.", ResearchArea = "C#", Status = "Pending", Date = "2026-04-15" }
             };
         }
 
@@ -35,32 +34,13 @@ namespace BlindMatchPAS.Controllers
             return View(project);
         }
 
-        [HttpGet]
-        public IActionResult ConfirmMatch(int id)
-        {
-            var project = GetDummyProjects().FirstOrDefault(p => p.Id == id);
-            if (project == null) return NotFound();
-            return View(project);
-        }
-
         [HttpPost]
         public IActionResult ConfirmMatch(int ProjectId, string ActionType)
         {
-            TempData["SuccessMessage"] = $"Project #{ProjectId} successfully accepted! The student has been notified and identities are now revealed.";
+            TempData["SuccessMessage"] = $"Project #{ProjectId} successfully accepted!";
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult Settings()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Settings(string action)
-        {
-            TempData["SuccessMessage"] = "Your preferences have been successfully updated.";
-            return RedirectToAction("Index");
-        }
+        public IActionResult Settings() => View();
     }
 }

@@ -1,50 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BlindMatchPAS.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
-        public IActionResult Login() => View();
+        private readonly Dictionary<string, string> _testUsers = new()
+        {
+            { "student@student.ac.nsbm.lk", "student123" },
+            { "supervisor@superviouse.ac.nsbm.lk", "super123" },
+            { "admin@admin.ac.nsbm.lk", "admin123" }
+        };
+
+        [HttpGet] public IActionResult Login() => View();
 
         [HttpPost]
         public IActionResult Login(string Email, string Password)
         {
-            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
+            string loginEmail = Email?.ToLower();
+            if (_testUsers.ContainsKey(loginEmail) && _testUsers[loginEmail] == Password)
             {
-                ModelState.AddModelError(string.Empty, "Email and Password are required.");
-                return View();
+                if (loginEmail.EndsWith("@admin.ac.nsbm.lk")) return RedirectToAction("Admin", "Admin");
+
+                // FIXED: Now points to the specific StudentDashboard action
+                if (loginEmail.EndsWith("@student.ac.nsbm.lk")) return RedirectToAction("StudentDashboard", "Student");
+
+                return RedirectToAction("Index", "Supervisor");
             }
-
-            // HARDCODED TEST: Remove before coursework submission!
-            if (Password != "12345")
-            {
-                ModelState.AddModelError(string.Empty, "Invalid password. (Use '12345' for testing)");
-                return View();
-            }
-
-            string loginEmail = Email.ToLower();
-
-            if (loginEmail.EndsWith("@student.ac.nsbm.lk")) return RedirectToAction("Index", "Student");
-            if (loginEmail.EndsWith("@superviouse.ac.nsbm.lk") || loginEmail.Contains("supervisor")) return RedirectToAction("Index", "Supervisor");
-            if (loginEmail.EndsWith("@admin.ac.nsbm.lk")) return RedirectToAction("Index", "Admin");
-
-            ModelState.AddModelError(string.Empty, "Invalid university email domain.");
+            ModelState.AddModelError("", "Invalid credentials.");
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Register() => View();
-
         [HttpPost]
-        public IActionResult Register(string FullName, string Email, string Password, string ConfirmPassword)
+        public IActionResult UploadProposal(ProposalUploadViewModel model)
         {
-            if (Password != ConfirmPassword)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "Passwords do not match.");
-                return View();
+                
+                return RedirectToAction("SubmitProject", "Student");
             }
-            return RedirectToAction("Login");
+            return View(model);
         }
+
     }
 }

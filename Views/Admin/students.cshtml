@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Student Management";
+}
+
+<div class="card-box">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0"><i class="bi bi-people me-2"></i> Student Management</h3>
+        <button class="btn btn-custom fw-bold" data-bs-toggle="modal" data-bs-target="#studentModal">+ Add New Student</button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="text-muted small text-uppercase">
+                <tr>
+                    <th class="ps-3">ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Research Interest</th>
+                    <th>GPA</th>
+                    <th class="text-end pe-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="ps-3 text-muted">#101</td>
+                    <td class="fw-bold">Alice Johnson</td>
+                    <td>alice@student.ac.nsbm.lk</td>
+                    <td><span class="tag m-0 text-muted">AI</span></td>
+                    <td class="fw-bold text-success">3.8</td>
+                    <td class="text-end pe-3">
+                        <button class="btn btn-sm btn-outline-dark me-1">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ps-3 text-muted">#102</td>
+                    <td class="fw-bold">Bob Smith</td>
+                    <td>bob@student.ac.nsbm.lk</td>
+                    <td><span class="tag m-0 text-muted">Cyber Security</span></td>
+                    <td class="fw-bold text-success">3.5</td>
+                    <td class="text-end pe-3">
+                        <button class="btn btn-sm btn-outline-dark me-1">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="ps-3 text-muted">#103</td>
+                    <td class="fw-bold">Charlie Brown</td>
+                    <td>charlie@student.ac.nsbm.lk</td>
+                    <td><span class="tag m-0 text-muted">Data Science</span></td>
+                    <td class="fw-bold text-success">3.9</td>
+                    <td class="text-end pe-3">
+                        <button class="btn btn-sm btn-outline-dark me-1">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

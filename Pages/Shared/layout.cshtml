@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NSBM Dashboard</title>
+    <title>@ViewData["Title"] - NSBM Admin</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 </head>
 <body data-theme="light">
@@ -14,18 +16,18 @@
         <h3>NSBM</h3>
         <ul>
             <li><a asp-page="/Index"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
-            <li><a asp-page="/students"><i class="bi bi-people me-2"></i> Students</a></li>
-            <li><a asp-page="/supervisor"><i class="bi bi-mortarboard me-2"></i> Supervisor</a></li>
-            <li><a asp-page="/matches"><i class="bi bi-folder-check me-2"></i> Matches</a></li>
-            <li><a asp-page="/research"><i class="bi bi-journal-text me-2"></i> Research</a></li>
+            <li><a asp-page="/Students"><i class="bi bi-people me-2"></i> Students</a></li>
+            <li><a asp-page="/Supervisor"><i class="bi bi-mortarboard me-2"></i> Supervisor</a></li>
+            <li><a asp-page="/Matches"><i class="bi bi-folder-check me-2"></i> Matches</a></li>
+            <li><a asp-page="/Research"><i class="bi bi-journal-text me-2"></i> Research</a></li>
             <li class="px-3"><hr style="border-top: 1px solid rgba(255,255,255,0.1);"></li>
-            <li><a asp-page="/settings"><i class="bi bi-gear me-2"></i> Settings</a></li>
+            <li><a asp-page="/Settings"><i class="bi bi-gear me-2"></i> Settings</a></li>
         </ul>
     </div>
 
     <header class="topbar">
-        <input type="text" class="form-control" style="width: 350px; border-radius: 20px;" placeholder="Search..." />
-        <a asp-page="/settings" style="text-decoration: none; font-size: 20px; color: var(--text-main);">⚙️</a>
+        <input type="text" class="form-control" style="max-width: 350px; border-radius: 20px;" placeholder="Search dashboard..." />
+        <a asp-page="/Settings" class="text-dark" style="text-decoration: none; font-size: 1.2rem;"><i class="bi bi-gear-fill"></i></a>
     </header>
 
     <main class="main-content">
@@ -33,11 +35,14 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
+        const body = document.body;
         if (localStorage.getItem('theme') === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
+        body.setAttribute('data-theme', 'dark');
         }
     </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

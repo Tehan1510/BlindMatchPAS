@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BlindMatchPAS.Controllers.ProjectMatchViewModel>
+@{
+    ViewData["Title"] = "Project Matches";
+}
+
+<div class="card-box shadow-sm border-0 rounded-4 p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0"><i class="bi bi-folder-check me-2"></i>Project Matches</h3>
+        
+        <form method="post" asp-controller="Admin" asp-action="GenerateMatches">
+            <button type="submit" class="btn btn-custom px-4 fw-bold shadow-sm">
+                Generate New Matches
+            </button>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="bg-light text-muted small text-uppercase">
+                <tr>
+                    <th class="ps-4">Match ID</th>
+                    <th>Student Name</th>
+                    <th>Assigned Supervisor</th>
+                    <th>Research Area</th>
+                    <th class="text-end pe-4">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var match in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold text-muted">#@match.Id</td>
+                            <td>
+                                <div class="fw-bold">@match.StudentName</div>
+                                <small class="text-muted">GPA: @match.GPA</small>
+                            </td>
+                            <td>@match.SupervisorName</td>
+                            <td><span class="tag m-0 text-muted border-0">@match.ResearchArea</span></td>
+                            <td class="text-end pe-4"><span class="badge bg-success">Confirmed</span></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Click "Generate New Matches" to run the algorithm.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

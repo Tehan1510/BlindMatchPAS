@@ -21,6 +21,8 @@ C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\rjsmcs
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\scopedcss\bundle\BlindMatchPAS.styles.css
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\scopedcss\projectbundle\BlindMatchPAS.bundle.scp.css
+C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\l3xq4ajtb9-{0}-5wtqxxs2hx-5wtqxxs2hx.gz
+C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\yuu0ofgvgo-{0}-f8iti9g0oa-f8iti9g0oa.gz
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\7lc34k34vj-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\1vvmstu5k2-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\ktwafcush2-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -95,4 +97,3 @@ C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\refint
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\BlindMatchPAS.pdb
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\BlindMatchPAS.genruntimeconfig.cache
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\ref\BlindMatchPAS.dll
-C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\obj\Debug\net10.0\compressed\yuu0ofgvgo-{0}-qcxzjz60cf-qcxzjz60cf.gz

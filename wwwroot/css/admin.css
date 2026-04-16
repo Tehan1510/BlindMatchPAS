@@ -1,0 +1,228 @@
+﻿/* --- wwwroot/css/admin.css --- */
+
+/* --- 1. DARK MODE ENGINE & VARIABLES --- */
+:root {
+    --sidebar-width: 240px;
+    --primary-dark: #2c3e50;
+    --bg-body: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --border-color: #e9ecef;
+    --input-bg: #ffffff;
+    --accent: #2c3e50;
+}
+
+[data-theme="dark"] {
+    --bg-body: #0b1437;
+    --bg-card: #111c44;
+    --primary-dark: #080d26;
+    --text-main: #ffffff;
+    --text-muted: #a3adcc;
+    --border-color: #222e5e;
+    --input-bg: #1b254b;
+    --accent: #4318FF;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Segoe UI', sans-serif;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* --- 2. LAYOUT & NAVIGATION --- */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--primary-dark);
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+    .sidebar h3 {
+        padding: 25px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        margin: 0;
+        color: white;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 10px 0;
+        margin: 0;
+    }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 12px 20px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+            .sidebar ul li a:hover {
+                background: rgba(255,255,255,0.1);
+                color: white;
+            }
+
+.topbar {
+    margin-left: var(--sidebar-width);
+    height: 70px;
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 30px;
+    min-height: calc(100vh - 70px);
+}
+
+/* --- 3. STANDARD COMPONENTS --- */
+.card-box {
+    background: var(--bg-card);
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.btn-custom {
+    background: var(--primary-dark);
+    color: white;
+    border-radius: 8px;
+    padding: 8px 20px;
+    border: none;
+}
+
+    .btn-custom:hover {
+        background: #1a252f;
+        color: white;
+    }
+
+.tag {
+    background: rgba(44, 62, 80, 0.1);
+    color: var(--text-main);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin: 4px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+}
+
+/* --- 4. SUPERVISOR SPECIFIC CARDS --- */
+.sup-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+    .sup-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+.expertise-pill {
+    background: rgba(44, 62, 80, 0.08);
+    color: var(--text-main);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid var(--border-color);
+    display: inline-block;
+}
+
+.sup-card .progress {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sup-card .btn-outline-secondary {
+    border-color: var(--border-color);
+    color: var(--text-main);
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+    .sup-card .btn-outline-secondary:hover {
+        background-color: var(--primary-dark);
+        color: white;
+        border-color: var(--primary-dark);
+    }
+
+/* --- 5. TABLES, MODALS & FORMS --- */
+.table {
+    color: var(--text-main);
+}
+
+    .table thead th {
+        background-color: rgba(0,0,0,0.02);
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .table td {
+        border-color: var(--border-color);
+    }
+
+.modal-content {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+}
+
+.modal-header, .modal-footer {
+    border-color: var(--border-color);
+}
+
+.btn-close {
+    filter: var(--text-main) == #ffffff ? invert(1) grayscale(100%) brightness(200%) : none;
+}
+
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+    .form-control:focus, .form-select:focus {
+        background-color: var(--input-bg);
+        color: var(--text-main);
+        border-color: var(--accent);
+        box-shadow: none;
+    }
+
+.nav-tabs {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-link {
+    color: var(--text-muted);
+    border: none !important;
+    font-weight: 600;
+}
+
+    .nav-link.active {
+        color: var(--text-main) !important;
+        border-bottom: 4px solid var(--accent) !important;
+        background: none !important;
+    }

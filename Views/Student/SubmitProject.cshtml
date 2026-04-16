@@ -1,0 +1,56 @@
+﻿@model BlindMatchPAS.Controllers.ProposalUploadViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Submit Proposal | NSBM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body class="bg-[#f8fafc] font-sans text-slate-900">
+    <div class="flex h-screen overflow-hidden">
+        <main class="flex-1 flex flex-col min-w-0 bg-[#f1f5f9]">
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 shrink-0">
+                <h2 class="text-lg font-bold text-slate-700">Submit New Project Proposal</h2>
+            </header>
+
+            <div class="p-8 max-w-4xl mx-auto w-full overflow-y-auto">
+                <form asp-controller="Account" asp-action="UploadProposal" method="post" enctype="multipart/form-data" class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Project Title</label>
+                                <input type="text" asp-for="ProjectTitle" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm" required />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Category</label>
+                                <select asp-for="Category" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm bg-white">
+                                    <option>Software Engineering</option>
+                                    <option>Data Science</option>
+                                    <option>Cyber Security</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div id="drop-area" class="border-2 border-dashed border-slate-200 rounded-xl p-12 text-center cursor-pointer">
+                            <input type="file" asp-for="ProjectFile" id="fileElem" class="hidden" accept=".pdf,.doc,.docx" required>
+                            <p class="text-slate-600 font-medium">Click to upload or drag and drop proposal</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-4 mt-8">
+                        <button type="submit" class="bg-[#22c55e] hover:bg-emerald-600 text-white px-8 py-2.5 rounded-lg font-bold shadow-md">
+                            Submit Proposal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

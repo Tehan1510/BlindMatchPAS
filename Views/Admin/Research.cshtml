@@ -1,0 +1,117 @@
+﻿@model IEnumerable<BlindMatchPAS.Controllers.ResearchTopicViewModel>
+@{
+    ViewData["Title"] = "Research Areas";
+}
+
+<div class="card-box shadow-sm border-0 rounded-4 p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0"><i class="bi bi-journal-text me-2"></i>Research Topics</h3>
+        <button class="btn btn-custom px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createTopicModal">
+            + Create New Topic
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="bg-light text-muted small text-uppercase">
+                <tr>
+                    <th class="ps-4">Topic ID</th>
+                    <th>Research Title</th>
+                    <th>Field</th>
+                    <th>Lead Supervisor</th>
+                    <th class="text-end pe-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold text-muted">#@item.Id</td>
+                            <td class="fw-bold">@item.Title</td>
+                            <td><span class="tag m-0 border-0">@item.Field</span></td>
+                            <td>@item.SupervisorName</td>
+                            <td class="text-end pe-4">
+                                <button class="btn btn-sm btn-outline-dark" onclick="showResearchDetails('@item.Title', '@item.Summary', '@item.Requirements')">Details</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="createTopicModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold">Create New Research Topic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <form method="post" asp-controller="Admin" asp-action="CreateTopic">
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">RESEARCH TITLE</label>
+                        <input type="text" name="Title" class="form-control shadow-sm" placeholder="e.g. AI in Healthcare" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">FIELD / CATEGORY</label>
+                        <input type="text" name="Field" class="form-control shadow-sm" placeholder="e.g. Machine Learning" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">LEAD SUPERVISOR</label>
+                        <select name="SupervisorName" class="form-select shadow-sm" required>
+                            <option value="">Select Supervisor...</option>
+                            <option>Dr. Aruna Pathirana</option>
+                            <option>Prof. Samantha Perera</option>
+                            <option>Dr. Nilanthi Silva</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">SUMMARY</label>
+                        <textarea name="Summary" class="form-control shadow-sm" rows="2" required></textarea>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label small fw-bold text-muted">PREREQUISITES</label>
+                        <textarea name="Requirements" class="form-control shadow-sm" rows="2" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-custom px-4 fw-bold">Save Topic</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="researchDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold" id="modalTitle">Topic Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <h6 class="fw-bold text-primary mb-2">Summary</h6>
+                <p id="modalSummary" class="text-muted mb-4"></p>
+                <h6 class="fw-bold text-primary mb-2">Prerequisites</h6>
+                <p id="modalRequirements" class="text-muted mb-0"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showResearchDetails(title, summary, requirements) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalSummary').innerText = summary;
+            document.getElementById('modalRequirements').innerText = requirements;
+            new bootstrap.Modal(document.getElementById('researchDetailModal')).show();
+        }
+    </script>
+}

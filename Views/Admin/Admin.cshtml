@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BlindMatchPAS.Controllers.AdminMatchViewModel>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="card-box mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="m-0 fw-bold"><i class="bi bi-grid-1x2 me-2"></i>Overview of All Matches</h5>
+        <a asp-controller="Admin" asp-action="Matches" class="btn btn-custom fw-bold shadow-sm">View Full Details</a>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="text-muted small text-uppercase bg-light">
+                <tr>
+                    <th class="ps-3 border-0">Student 1</th>
+                    <th class="border-0">Student 2</th>
+                    <th class="border-0">Supervisor</th>
+                    <th class="text-end pe-3 border-0">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-3 fw-bold">@item.Student1</td>
+                            <td class="fw-bold">@item.Student2</td>
+                            <td class="text-muted">@item.Supervisor</td>
+                            <td class="text-end pe-3">
+                                @* Fixed the ternary logic to prevent syntax errors *@
+                                <span class="badge @(item.Status == "Approved" ? "bg-success" : "bg-warning text-dark") shadow-sm">
+                                    @item.Status
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4 border-bottom-0">No matches currently in the system.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card-box">
+    <h5 class="fw-bold mb-4"><i class="bi bi-tags me-2"></i>Research Area Management</h5>
+    
+    <form asp-controller="Admin" asp-action="AddArea" method="post">
+        <div class="input-group mb-4 shadow-sm" style="border-radius: 8px; overflow: hidden;">
+            <input list="researchAreas" name="NewArea" class="form-control border-0 bg-light" placeholder="Type or select a new research area..." required>
+            <datalist id="researchAreas">
+                <option value="Artificial Intelligence" />
+                <option value="Machine Learning" />
+                <option value="Data Science" />
+                <option value="Cyber Security" />
+                <option value="Cloud Computing" />
+            </datalist>
+            <button class="btn btn-custom px-4 fw-bold" type="submit">Add Area</button>
+        </div>
+    </form>
+
+    <div class="d-flex flex-wrap gap-2">
+        @if (ViewBag.CurrentTags != null)
+        {
+            @foreach (var tagItem in (List<string>)ViewBag.CurrentTags)
+            {
+                <div class="tag shadow-sm d-flex align-items-center m-0">
+                    <span class="fw-medium">@tagItem</span>
+                    <form asp-controller="Admin" asp-action="RemoveArea" asp-route-areaName="@tagItem" method="post" class="d-inline m-0 p-0 ms-2">
+                        <button type="submit" class="btn-close" style="font-size: 10px;" aria-label="Remove"></button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,3 +1,4 @@
+wwwroot\css\admin.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
@@ -62,8 +63,6 @@ wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\css\site.css
-C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\favicon.ico
-C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\js\site.js
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -123,3 +122,6 @@ C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\jquery\dist\
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\js\site.js
+C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\favicon.ico
+C:\Users\sadis\source\repos\BlindMatchPAS\BlindMatchPAS\wwwroot\css\admin.css
