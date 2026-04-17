@@ -13,7 +13,6 @@
 </head>
 <body class="bg-[#f8fafc] font-sans text-slate-900">
     <div class="flex h-screen overflow-hidden">
-
         <aside class="w-64 bg-[#1a222e] text-slate-400 flex flex-col shrink-0">
             <div class="p-6 flex items-center gap-3 text-white">
                 <span class="text-xl font-bold uppercase">NSBM</span>
@@ -59,44 +58,100 @@
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                         <h3 class="text-base font-bold text-slate-700 mb-4">Edit Project Details</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                             <div>
                                 <label class="block text-sm font-semibold text-slate-600 mb-2">Project Title *</label>
                                 <input type="text" name="Title" value="@Model.Title"
                                        class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
                                        required maxlength="200" />
                             </div>
+
                             <div>
                                 <label class="block text-sm font-semibold text-slate-600 mb-2">Research Area *</label>
-                                <select name="ResearchArea" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm bg-white" required>
-                                    @if (ViewBag.ResearchAreas != null)
-                                    {
-                                        @foreach (var area in (List<string>)ViewBag.ResearchAreas)
+                                <select name="ResearchArea"
+                                        class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm bg-white"
+                                        required>
+                                    @{
+                                        var researchAreas = ViewBag.ResearchAreas as List<string>;
+                                        if (researchAreas != null && researchAreas.Any())
                                         {
-                                            <option value="@area" @(Model.ResearchArea == area ? "selected" : "")>@area</option>
+                                            foreach (var area in researchAreas)
+                                            {
+                                                if (Model.ResearchArea == area)
+                                                {
+                                                    <option value="@area" selected>@area</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@area">@area</option>
+                                                }
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        <option value="AI" @(Model.ResearchArea == "AI" ? "selected" : "")>AI</option>
-                                        <option value="Software" @(Model.ResearchArea == "Software" ? "selected" : "")>Software Engineering</option>
-                                        <option value="Java" @(Model.ResearchArea == "Java" ? "selected" : "")>Java</option>
-                                        <option value="C#" @(Model.ResearchArea == "C#" ? "selected" : "")>C# / .NET</option>
-                                        <option value="Networking" @(Model.ResearchArea == "Networking" ? "selected" : "")>Networking & IoT</option>
+                                        else
+                                        {
+                                            if (Model.ResearchArea == "AI")
+                                            {
+                                                <option value="AI" selected>AI</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="AI">AI</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Software")
+                                            {
+                                                <option value="Software" selected>Software Engineering</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Software">Software Engineering</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Java")
+                                            {
+                                                <option value="Java" selected>Java</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Java">Java</option>
+                                            }
+
+                                            if (Model.ResearchArea == "C#")
+                                            {
+                                                <option value="C#" selected>C# / .NET</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="C#">C# / .NET</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Networking")
+                                            {
+                                                <option value="Networking" selected>Networking &amp; IoT</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Networking">Networking &amp; IoT</option>
+                                            }
+                                        }
                                     }
                                 </select>
                             </div>
+
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-semibold text-slate-600 mb-2">Technical Stack *</label>
                                 <input type="text" name="TechnicalStack" value="@Model.TechnicalStack"
                                        class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
                                        required maxlength="100" />
                             </div>
+
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-semibold text-slate-600 mb-2">Abstract / Description *</label>
                                 <textarea name="Abstract" rows="5"
                                           class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
                                           required>@Model.Abstract</textarea>
                             </div>
+
                         </div>
                     </div>
 
@@ -110,6 +165,7 @@
                             Save Changes
                         </button>
                     </div>
+
                 </form>
             </div>
         </main>
