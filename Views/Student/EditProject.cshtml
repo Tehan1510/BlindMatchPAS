@@ -1,0 +1,174 @@
+@model BlindMatchPAS.Models.ProjectViewModel
+@{
+    ViewData["Title"] = "Edit Project";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Edit Project | NSBM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body class="bg-[#f8fafc] font-sans text-slate-900">
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-[#1a222e] text-slate-400 flex flex-col shrink-0">
+            <div class="p-6 flex items-center gap-3 text-white">
+                <span class="text-xl font-bold uppercase">NSBM</span>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4 text-sm">
+                <a asp-controller="Student" asp-action="Index"
+                   class="flex items-center gap-3 p-3 text-white bg-slate-800/50 rounded-lg">
+                    <i class="fa-solid fa-house w-5"></i> Dashboard
+                </a>
+                <a asp-controller="Student" asp-action="SubmitProject"
+                   class="flex items-center gap-3 p-3 hover:text-white transition-colors">
+                    <i class="fa-solid fa-plus w-5"></i> Submit New Project
+                </a>
+                <a asp-controller="Account" asp-action="Logout"
+                   class="flex items-center gap-3 p-3 hover:text-white transition-colors text-red-400">
+                    <i class="fa-solid fa-right-from-bracket w-5"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 flex flex-col min-w-0 bg-[#f1f5f9]">
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 shrink-0">
+                <h2 class="text-lg font-bold text-slate-700">Edit Project Proposal</h2>
+            </header>
+
+            <div class="p-8 max-w-4xl mx-auto w-full overflow-y-auto">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+                        <ul>
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                <form asp-controller="Student" asp-action="EditProject" method="post" class="space-y-6">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-base font-bold text-slate-700 mb-4">Edit Project Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Project Title *</label>
+                                <input type="text" name="Title" value="@Model.Title"
+                                       class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
+                                       required maxlength="200" />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Research Area *</label>
+                                <select name="ResearchArea"
+                                        class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm bg-white"
+                                        required>
+                                    @{
+                                        var researchAreas = ViewBag.ResearchAreas as List<string>;
+                                        if (researchAreas != null && researchAreas.Any())
+                                        {
+                                            foreach (var area in researchAreas)
+                                            {
+                                                if (Model.ResearchArea == area)
+                                                {
+                                                    <option value="@area" selected>@area</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@area">@area</option>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Model.ResearchArea == "AI")
+                                            {
+                                                <option value="AI" selected>AI</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="AI">AI</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Software")
+                                            {
+                                                <option value="Software" selected>Software Engineering</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Software">Software Engineering</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Java")
+                                            {
+                                                <option value="Java" selected>Java</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Java">Java</option>
+                                            }
+
+                                            if (Model.ResearchArea == "C#")
+                                            {
+                                                <option value="C#" selected>C# / .NET</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="C#">C# / .NET</option>
+                                            }
+
+                                            if (Model.ResearchArea == "Networking")
+                                            {
+                                                <option value="Networking" selected>Networking &amp; IoT</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Networking">Networking &amp; IoT</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Technical Stack *</label>
+                                <input type="text" name="TechnicalStack" value="@Model.TechnicalStack"
+                                       class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
+                                       required maxlength="100" />
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-semibold text-slate-600 mb-2">Abstract / Description *</label>
+                                <textarea name="Abstract" rows="5"
+                                          class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm"
+                                          required>@Model.Abstract</textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-4 mt-8">
+                        <a asp-controller="Student" asp-action="Index"
+                           class="border border-slate-300 text-slate-600 px-6 py-2.5 rounded-lg font-semibold text-sm no-underline hover:bg-slate-50 transition-colors">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-2.5 rounded-lg font-bold shadow-md border-0 cursor-pointer">
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

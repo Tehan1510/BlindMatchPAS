@@ -14,32 +14,82 @@
 </head>
 <body class="dashboard-container" style="background-color: #f4f5f7; padding-top: 2rem;">
     <div class="container" style="max-width: 800px;">
+
+        @* Top navigation bar *@
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <a asp-action="Index" class="btn btn-light border shadow-sm rounded-pill px-4 fw-bold text-muted"><i class="bi bi-arrow-left me-2"></i> Back to Dashboard</a>
+            <a asp-action="Index" 
+               class="btn btn-light border shadow-sm rounded-pill px-4 fw-bold text-muted">
+                <i class="bi bi-arrow-left me-2"></i> Back to Dashboard
+            </a>
             <div class="bg-white px-3 py-2 rounded-pill shadow-sm border border-secondary border-opacity-25">
-                <i class="bi bi-eye-slash-fill text-muted me-2"></i><span class="fw-bold text-dark small">Author Identity Hidden</span>
+                <i class="bi bi-eye-slash-fill text-muted me-2"></i>
+                <span class="fw-bold text-dark small">Author Identity Hidden</span>
             </div>
         </div>
+
+        @* Main project details card *@
         <div class="card border-0 shadow rounded-4 p-4 p-md-5 bg-white mb-4">
+
+            @* Project header *@
             <div class="mb-4 pb-4 border-bottom">
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <span class="badge bg-light text-dark border px-3 py-2 fs-6">@Model.ResearchArea</span>
+                    <span class="badge bg-light text-dark border px-3 py-2 fs-6">
+                        @Model.ResearchArea
+                    </span>
                     <span class="text-muted fw-bold">Project ID: #@Model.Id</span>
+
+                    @* Show status badge *@
+                    @if (Model.Status == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    }
+                    else if (Model.Status == "UnderReview")
+                    {
+                        <span class="badge bg-info text-dark">Under Review</span>
+                    }
                 </div>
                 <h1 class="fw-bold text-dark">@Model.Title</h1>
-                <p class="text-muted mt-2"><i class="bi bi-clock-history me-1"></i> Submitted for Blind Review</p>
+                <p class="text-muted mt-2">
+                    <i class="bi bi-clock-history me-1"></i> Submitted for Blind Review
+                </p>
             </div>
+
+            @* Technical stack *@
+            @if (!string.IsNullOrEmpty(Model.TechnicalStack))
+            {
+                <div class="mb-4">
+                    <h6 class="fw-bold text-muted small text-uppercase mb-2">
+                        Technical Stack
+                    </h6>
+                    <span class="badge bg-light text-dark border px-3 py-2">
+                        <i class="bi bi-tools me-1"></i> @Model.TechnicalStack
+                    </span>
+                </div>
+            }
+
+            @* Abstract *@
             <div class="mb-5">
                 <h5 class="fw-bold mb-3">Project Abstract & Description</h5>
-                <p class="text-dark" style="line-height: 1.8; font-size: 1.05rem;">@Model.Abstract</p>
-                <p class="text-muted mt-3" style="line-height: 1.8;">This project aims to solve critical problems within the chosen research domain by implementing modern software engineering practices. The proposed solution will involve rigorous testing, a scalable architecture, and a user-centric design approach...</p>
+                <p class="text-dark" style="line-height: 1.8; font-size: 1.05rem;">
+                    @Model.Abstract
+                </p>
             </div>
-            <div class="bg-light rounded-4 p-4 border text-center mt-5">
+
+            @* Action section *@
+            <div class="bg-light rounded-4 p-4 border text-center mt-3">
                 <h5 class="fw-bold mb-2">Interested in supervising this project?</h5>
-                <p class="text-muted small mb-4">Clicking accept will take you to the final confirmation screen.</p>
-                <a asp-action="ConfirmMatch" asp-route-id="@Model.Id" class="btn btn-pas-green btn-lg px-5 rounded-pill fw-bold shadow-sm"><i class="bi bi-check-circle me-2"></i> Express Interest & Proceed</a>
+                <p class="text-muted small mb-4">
+                    Clicking accept will take you to the final confirmation screen.
+                </p>
+                <a asp-action="ConfirmMatch" asp-route-id="@Model.Id" 
+                   class="btn btn-pas-green btn-lg px-5 rounded-pill fw-bold shadow-sm">
+                    <i class="bi bi-check-circle me-2"></i> Express Interest & Proceed
+                </a>
             </div>
+
         </div>
     </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

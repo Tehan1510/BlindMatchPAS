@@ -12,16 +12,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="dashboard-container d-flex align-items-center justify-content-center min-vh-100" style="background-color: #f4f5f7;">
+<body class="dashboard-container d-flex align-items-center justify-content-center min-vh-100" 
+      style="background-color: #f4f5f7;">
+
     <div class="card border-0 shadow-sm rounded-4 p-2" style="max-width: 500px; width: 100%;">
         <div class="card-body text-center p-4">
+
+            @* Icon *@
             <div class="mb-4">
-                <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 80px; height: 80px;">
+                <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle" 
+                     style="width: 80px; height: 80px;">
                     <i class="bi bi-shield-check text-success" style="font-size: 2.5rem;"></i>
                 </div>
             </div>
+
             <h4 class="fw-bold mb-2">Confirm Supervision Match</h4>
-            <p class="text-muted mb-4">You are about to officially express interest in supervising this project.</p>
+            <p class="text-muted mb-4">
+                You are about to officially express interest in supervising this project.
+            </p>
+
+            @* Project summary box *@
             <div class="bg-light rounded-3 p-3 mb-4 text-start border border-light-subtle">
                 <div class="d-flex justify-content-between mb-1">
                     <span class="text-muted small">Project Title</span>
@@ -29,20 +39,56 @@
                 </div>
                 <h6 class="fw-bold mb-2 text-dark">@Model.Title</h6>
                 <p class="text-muted small mb-0">@Model.Abstract</p>
+
+                @* Show tech stack if available *@
+                @if (!string.IsNullOrEmpty(Model.TechnicalStack))
+                {
+                    <div class="mt-2 pt-2 border-top">
+                        <span class="text-muted small">
+                            <i class="bi bi-tools me-1"></i> 
+                            Tech Stack: <strong>@Model.TechnicalStack</strong>
+                        </span>
+                    </div>
+                }
             </div>
+
+            @* Warning about identity reveal *@
             <div class="alert alert-warning text-start border-0 bg-warning bg-opacity-10 rounded-3 mb-4 d-flex align-items-start">
                 <i class="bi bi-exclamation-triangle-fill text-warning me-3 mt-1 fs-5"></i>
                 <div>
-                    <strong class="d-block text-warning-emphasis">Identity Reveal Trigger</strong>
-                    <span class="small text-muted">Confirming this will immediately reveal your identity to the student, and their details to you. This action cannot be undone.</span>
+                    <strong class="d-block text-warning-emphasis">
+                        Identity Reveal Trigger
+                    </strong>
+                    <span class="small text-muted">
+                        Confirming this will immediately reveal your identity to the student, 
+                        and their details to you. This action cannot be undone.
+                    </span>
                 </div>
             </div>
-            <form asp-controller="Supervisor" asp-action="ConfirmMatch" method="post" class="d-flex flex-column gap-3">
+
+            @* Form - posts to ConfirmMatch POST action *@
+            <form asp-controller="Supervisor" 
+                  asp-action="ConfirmMatch" 
+                  method="post" 
+                  class="d-flex flex-column gap-3">
+
+                @* Pass the project ID *@
                 <input type="hidden" name="ProjectId" value="@Model.Id" />
-                <button type="submit" class="btn btn-pas-green btn-lg w-100 fw-bold rounded-pill shadow-sm">Confirm & Reveal Identity</button>
-                <a asp-action="Index" class="btn btn-light btn-lg w-100 fw-medium rounded-pill text-muted border border-light-subtle">Cancel & Go Back</a>
+
+                <button type="submit" 
+                        class="btn btn-pas-green btn-lg w-100 fw-bold rounded-pill shadow-sm">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Confirm & Reveal Identity
+                </button>
+                <a asp-action="Index" 
+                   class="btn btn-light btn-lg w-100 fw-medium rounded-pill text-muted border border-light-subtle">
+                    Cancel & Go Back
+                </a>
             </form>
+
         </div>
     </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

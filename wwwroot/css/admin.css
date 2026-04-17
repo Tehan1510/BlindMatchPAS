@@ -1,4 +1,4 @@
-﻿/* --- wwwroot/css/admin.css --- */
+/* --- wwwroot/css/admin.css --- */
 
 /* --- 1. DARK MODE ENGINE & VARIABLES --- */
 :root {
@@ -105,6 +105,8 @@ body {
     border-radius: 8px;
     padding: 8px 20px;
     border: none;
+    text-decoration: none;
+    display: inline-block;
 }
 
     .btn-custom:hover {
@@ -149,25 +151,6 @@ body {
     display: inline-block;
 }
 
-.sup-card .progress {
-    background-color: var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.sup-card .btn-outline-secondary {
-    border-color: var(--border-color);
-    color: var(--text-main);
-    border-radius: 8px;
-    transition: 0.2s;
-}
-
-    .sup-card .btn-outline-secondary:hover {
-        background-color: var(--primary-dark);
-        color: white;
-        border-color: var(--primary-dark);
-    }
-
 /* --- 5. TABLES, MODALS & FORMS --- */
 .table {
     color: var(--text-main);
@@ -192,10 +175,6 @@ body {
 
 .modal-header, .modal-footer {
     border-color: var(--border-color);
-}
-
-.btn-close {
-    filter: var(--text-main) == #ffffff ? invert(1) grayscale(100%) brightness(200%) : none;
 }
 
 .form-control, .form-select {

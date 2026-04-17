@@ -1,4 +1,9 @@
-﻿@{ ViewData["Title"] = "Account Settings"; Layout = null; }
+﻿@{
+    ViewData["Title"] = "Account Settings"; Layout = null;
+
+    string dept = ViewBag.Department ?? "Faculty of Computing";
+    string preferredAreas = ViewBag.PreferredAreas ?? "";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,87 +16,289 @@
     <style>
         .dashboard-container { background-color: #f4f5f7; min-height: 100vh; }
         .sidebar { background-color: #1e2532; min-height: 100vh; color: white; padding-top: 2rem; }
-        .filter-btn { color: #a0aec0; text-align: left; padding: 10px 20px; border-radius: 8px; margin-bottom: 5px; transition: 0.2s; display: block; text-decoration: none; }
+        .filter-btn {
+            color: #a0aec0;
+            text-align: left;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: block;
+            text-decoration: none;
+        }
         .filter-btn:hover { background-color: rgba(255,255,255,0.1); color: white; }
+        .filter-btn.active {
+            background-color: #242c3d;
+            color: white;
+            border-left: 4px solid #00a651;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid dashboard-container p-0">
     <div class="row g-0">
+
+        @* ===== SIDEBAR ===== *@
         <div class="col-md-3 col-lg-2 sidebar px-3">
-            <h4 class="fw-bold mb-4 px-2"><i class="bi bi-stack text-success"></i> PAS</h4>
+            <h4 class="fw-bold mb-4 px-2">
+                <i class="bi bi-stack text-success"></i> PAS
+            </h4>
             <h6 class="text-uppercase text-muted small fw-bold mb-3 px-2">Navigation</h6>
             <div class="d-flex flex-column">
-                <a asp-action="Index" class="filter-btn"><i class="bi bi-grid-1x2 me-2"></i> Dashboard</a>
-                <a asp-action="Settings" class="filter-btn" style="background-color: #242c3d; color: white; border-left: 4px solid #00a651; font-weight: bold;"><i class="bi bi-gear me-2"></i> Settings</a>
+                <a asp-controller="Supervisor" asp-action="Index" class="filter-btn">
+                    <i class="bi bi-grid-1x2 me-2"></i> Dashboard
+                </a>
+                <a asp-controller="Supervisor" asp-action="Settings" class="filter-btn active">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
             </div>
         </div>
+
+        @* ===== MAIN CONTENT ===== *@
         <div class="col-md-9 col-lg-10 p-5">
+
             <div class="mb-5">
                 <h2 class="fw-bold mb-0">Settings & Preferences</h2>
                 <p class="text-muted">Manage your account details and supervision criteria.</p>
             </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <strong>Saved!</strong> @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
             <div class="row">
                 <div class="col-xl-8">
-                    <form asp-action="Settings" method="post">
+                    <form asp-controller="Supervisor" asp-action="Settings" method="post">
+
+                        @* ===== PROFESSIONAL PROFILE CARD ===== *@
                         <div class="card border-0 shadow-sm rounded-4 mb-4">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-4"><i class="bi bi-person-badge text-success me-2"></i> Professional Profile</h5>
+                                <h5 class="fw-bold mb-4">
+                                    <i class="bi bi-person-badge text-success me-2"></i>
+                                    Professional Profile
+                                </h5>
                                 <div class="row g-3">
+
                                     <div class="col-md-6">
-                                        <label class="form-label fw-bold small text-muted">Full Name</label>
-                                        <input type="text" class="form-control bg-light" value="Dr. Supervisor Name" required>
+                                        <label class="form-label fw-bold small text-muted">
+                                            Full Name
+                                        </label>
+                                        <input type="text"
+                                               name="FullName"
+                                               class="form-control bg-light"
+                                               value="@ViewBag.FullName"
+                                               required>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <label class="form-label fw-bold small text-muted">Faculty / Department</label>
-                                        <select class="form-select bg-light">
-                                            <option selected>Faculty of Computing</option>
-                                            <option>Faculty of Business</option>
-                                            <option>Faculty of Engineering</option>
+                                        <label class="form-label fw-bold small text-muted">
+                                            Faculty / Department
+                                        </label>
+
+                                        @* Fix: Use if/else instead of ternary inside option tag *@
+                                        <select name="Department" class="form-select bg-light">
+                                            @if (dept == "Faculty of Computing")
+                                            {
+                                                <option value="Faculty of Computing" selected>Faculty of Computing</option>
+                                                <option value="Faculty of Business">Faculty of Business</option>
+                                                <option value="Faculty of Engineering">Faculty of Engineering</option>
+                                            }
+                                            else if (dept == "Faculty of Business")
+                                            {
+                                                <option value="Faculty of Computing">Faculty of Computing</option>
+                                                <option value="Faculty of Business" selected>Faculty of Business</option>
+                                                <option value="Faculty of Engineering">Faculty of Engineering</option>
+                                            }
+                                            else if (dept == "Faculty of Engineering")
+                                            {
+                                                <option value="Faculty of Computing">Faculty of Computing</option>
+                                                <option value="Faculty of Business">Faculty of Business</option>
+                                                <option value="Faculty of Engineering" selected>Faculty of Engineering</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Faculty of Computing" selected>Faculty of Computing</option>
+                                                <option value="Faculty of Business">Faculty of Business</option>
+                                                <option value="Faculty of Engineering">Faculty of Engineering</option>
+                                            }
                                         </select>
                                     </div>
+
                                     <div class="col-md-12">
-                                        <label class="form-label fw-bold small text-muted">Academic Email</label>
-                                        <input type="email" class="form-control bg-light text-muted" value="test@superviouse.ac.nsbm.lk" readonly>
-                                        <div class="form-text">Your email cannot be changed as it is tied to the university domain.</div>
+                                        <label class="form-label fw-bold small text-muted">
+                                            Academic Email
+                                        </label>
+                                        <input type="email"
+                                               class="form-control bg-light text-muted"
+                                               value="@ViewBag.Email"
+                                               readonly>
+                                        <div class="form-text">
+                                            Your email cannot be changed as it is tied to
+                                            the university domain.
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+
+                        @* ===== SUPERVISION PREFERENCES CARD ===== *@
                         <div class="card border-0 shadow-sm rounded-4 mb-4">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-4"><i class="bi bi-sliders text-success me-2"></i> Supervision Preferences</h5>
+                                <h5 class="fw-bold mb-4">
+                                    <i class="bi bi-sliders text-success me-2"></i>
+                                    Supervision Preferences
+                                </h5>
+
                                 <div class="mb-4">
-                                    <label class="form-label fw-bold small text-muted">Maximum Project Quota</label>
-                                    <input type="number" class="form-control bg-light" style="max-width: 150px;" value="5" min="1" max="10">
-                                    <div class="form-text">How many groups are you willing to supervise this semester?</div>
+                                    <label class="form-label fw-bold small text-muted">
+                                        Maximum Project Quota
+                                    </label>
+                                    <input type="number"
+                                           name="MaxQuota"
+                                           class="form-control bg-light"
+                                           style="max-width: 150px;"
+                                           value="@ViewBag.MaxQuota"
+                                           min="1"
+                                           max="10">
+                                    <div class="form-text">
+                                        How many groups are you willing to supervise this semester?
+                                    </div>
                                 </div>
-                                <label class="form-label fw-bold small text-muted mb-2">Preferred Research Domains (Blind Review)</label>
+
+                                <label class="form-label fw-bold small text-muted mb-2">
+                                    Preferred Research Domains (Blind Review)
+                                </label>
                                 <div class="d-flex flex-wrap gap-3">
+
+                                    @* Fix: Use local variable for checked state *@
+                                    @{
+                                        bool aiChecked = preferredAreas.Contains("AI");
+                                        bool softwareChecked = preferredAreas.Contains("Software");
+                                        bool networkingChecked = preferredAreas.Contains("Networking");
+                                        bool javaChecked = preferredAreas.Contains("Java");
+                                        bool csharpChecked = preferredAreas.Contains("C#");
+                                    }
+
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="prefAI" checked>
-                                        <label class="form-check-label" for="prefAI">Artificial Intelligence</label>
+                                        @if (aiChecked)
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="AI"
+                                                   role="switch" id="prefAI" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="AI"
+                                                   role="switch" id="prefAI">
+                                        }
+                                        <label class="form-check-label" for="prefAI">
+                                            Artificial Intelligence
+                                        </label>
                                     </div>
+
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="prefSE" checked>
-                                        <label class="form-check-label" for="prefSE">Software Engineering</label>
+                                        @if (softwareChecked)
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Software"
+                                                   role="switch" id="prefSE" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Software"
+                                                   role="switch" id="prefSE">
+                                        }
+                                        <label class="form-check-label" for="prefSE">
+                                            Software Engineering
+                                        </label>
                                     </div>
+
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="prefNet">
-                                        <label class="form-check-label" for="prefNet">Networking & IoT</label>
+                                        @if (networkingChecked)
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Networking"
+                                                   role="switch" id="prefNet" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Networking"
+                                                   role="switch" id="prefNet">
+                                        }
+                                        <label class="form-check-label" for="prefNet">
+                                            Networking &amp; IoT
+                                        </label>
                                     </div>
+
+                                    <div class="form-check form-switch">
+                                        @if (javaChecked)
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Java"
+                                                   role="switch" id="prefJava" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="Java"
+                                                   role="switch" id="prefJava">
+                                        }
+                                        <label class="form-check-label" for="prefJava">
+                                            Java
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        @if (csharpChecked)
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="C#"
+                                                   role="switch" id="prefCsharp" checked>
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="PreferredAreas" value="C#"
+                                                   role="switch" id="prefCsharp">
+                                        }
+                                        <label class="form-check-label" for="prefCsharp">
+                                            C# / .NET
+                                        </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+
+                        @* ===== BUTTONS ===== *@
                         <div class="d-flex justify-content-end gap-3 mt-4">
-                            <a asp-action="Index" class="btn btn-light fw-bold px-4 rounded-pill border">Cancel</a>
-                            <button type="submit" class="btn btn-pas-green fw-bold px-5 rounded-pill shadow-sm">Save Changes</button>
+                            <a asp-controller="Supervisor" asp-action="Index"
+                               class="btn btn-light fw-bold px-4 rounded-pill border">
+                                Cancel
+                            </a>
+                            <button type="submit"
+                                    class="btn btn-pas-green fw-bold px-5 rounded-pill shadow-sm">
+                                Save Changes
+                            </button>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

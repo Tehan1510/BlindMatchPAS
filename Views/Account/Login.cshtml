@@ -1,6 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Login";
-    Layout = null;
+    ViewData["Title"] = "Login"; Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,53 +7,82 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PAS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body class="login-page-body">
-
-    <div class="login-card-custom" style="max-width: 420px; width: 100%;">
-        
-        <a asp-controller="Home" asp-action="Index" class="text-muted text-decoration-none small mb-3 d-inline-block">
+    <div class="login-card-custom p-4" style="max-width: 400px; width: 100%;">
+        <a asp-controller="Home" asp-action="Index"
+           class="text-muted text-decoration-none small mb-3 d-inline-block">
             <i class="bi bi-arrow-left"></i> Back to Welcome
         </a>
-
         <div class="text-center mb-4 mt-2">
-            <h2 class="fw-bold text-dark"><i class="bi bi-stack text-success"></i> PAS Login</h2>
+            <h2 class="fw-bold">
+                <i class="bi bi-stack text-success"></i> PAS Login
+            </h2>
         </div>
-        
+
+        @* Show success message from registration *@
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success py-2 small mb-3">
+                <i class="bi bi-check-circle me-1"></i> @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @* Show validation errors *@
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger py-2 small mb-3">
+                @Html.ValidationSummary(true, "")
+            </div>
+        }
+
         <form asp-controller="Account" asp-action="Login" method="post">
-            
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="alert alert-danger py-2 small border-0 shadow-sm rounded-3">
-                    @Html.ValidationSummary(true, "")
-                </div>
-            }
 
             <div class="mb-3">
-                <label class="form-label fw-bold text-muted small">Academic Email</label>
-                <input type="email" name="Email" class="form-control" placeholder="Username@student.ac.nsbm.lk" required>
+                <label class="form-label fw-bold">Email</label>
+                <input type="email"
+                       name="Email"
+                       class="form-control bg-light"
+                       placeholder="you@supervisor.nsbm.ac.lk"
+                       required>
             </div>
-            
+
             <div class="mb-4">
-                <label class="form-label fw-bold text-muted small">Password</label>
+                <label class="form-label fw-bold">Password</label>
                 <div class="input-group">
-                    <input type="password" name="Password" class="form-control" placeholder="Enter password" required>
-                    <span class="input-group-text bg-white border-start-0 text-muted cursor-pointer"><i class="bi bi-eye"></i></span>
+                    <input type="password"
+                           name="Password"
+                           class="form-control bg-light"
+                           id="passwordInput"
+                           placeholder="Enter your password"
+                           required>
+                    <span class="input-group-text bg-light"
+                          style="cursor:pointer;"
+                          onclick="togglePassword()">
+                        <i class="bi bi-eye" id="eyeIcon"></i>
+                    </span>
                 </div>
             </div>
-            
-            <button type="submit" class="btn btn-login-theme w-100 fw-bold py-2 mb-4">Login to Dashboard</button>
-            
+
+            <button type="submit" class="btn btn-pas-green w-100 fw-bold py-2 mb-3">
+                Login
+            </button>
+
             <div class="text-center">
-                <span class="text-muted small">Don't have an account? </span>
-                <a asp-controller="Account" asp-action="Register" class="fw-bold text-decoration-none" style="color: #2c3e50;">Create one</a>
+                <span class="text-muted">Don't have an account? </span>
+                <a asp-controller="Account" asp-action="Register"
+                   class="text-success fw-bold text-decoration-none">
+                    Create one
+                </a>
             </div>
         </form>
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
