@@ -1,117 +1,86 @@
-﻿@model IEnumerable<BlindMatchPAS.Controllers.ResearchTopicViewModel>
 @{
     ViewData["Title"] = "Research Areas";
+    Layout = null;
 }
-
-<div class="card-box shadow-sm border-0 rounded-4 p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold m-0"><i class="bi bi-journal-text me-2"></i>Research Topics</h3>
-        <button class="btn btn-custom px-4 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createTopicModal">
-            + Create New Topic
-        </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PAS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body data-theme="light">
+    <div class="sidebar">
+        <h3><i class="bi bi-stack me-2"></i>PAS</h3>
+        <ul>
+            <li><a asp-controller="Admin" asp-action="Admin"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
+            <li><a asp-controller="Admin" asp-action="Students"><i class="bi bi-people me-2"></i> Students</a></li>
+            <li><a asp-controller="Admin" asp-action="Supervisors"><i class="bi bi-mortarboard me-2"></i> Supervisors</a></li>
+            <li><a asp-controller="Admin" asp-action="Matches"><i class="bi bi-folder-check me-2"></i> Matches</a></li>
+            <li><a asp-controller="Admin" asp-action="Research"><i class="bi bi-journal-text me-2"></i> Research</a></li>
+            <li class="px-3"><hr style="border-top: 1px solid rgba(255,255,255,0.1);"></li>
+            <li><a asp-controller="Admin" asp-action="Settings"><i class="bi bi-gear me-2"></i> Settings</a></li>
+        </ul>
     </div>
-
-    <div class="table-responsive">
-        <table class="table table-hover align-middle">
-            <thead class="bg-light text-muted small text-uppercase">
-                <tr>
-                    <th class="ps-4">Topic ID</th>
-                    <th>Research Title</th>
-                    <th>Field</th>
-                    <th>Lead Supervisor</th>
-                    <th class="text-end pe-4">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td class="ps-4 fw-bold text-muted">#@item.Id</td>
-                            <td class="fw-bold">@item.Title</td>
-                            <td><span class="tag m-0 border-0">@item.Field</span></td>
-                            <td>@item.SupervisorName</td>
-                            <td class="text-end pe-4">
-                                <button class="btn btn-sm btn-outline-dark" onclick="showResearchDetails('@item.Title', '@item.Summary', '@item.Requirements')">Details</button>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="modal fade" id="createTopicModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold">Create New Research Topic</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <header class="topbar">
+        <input type="text" class="form-control" style="max-width: 350px; border-radius: 20px;" placeholder="Search..." />
+        <div class="d-flex align-items-center gap-3">
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-sm btn-outline-danger rounded-pill">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+            </a>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="card-box shadow-sm border-0 rounded-4 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold m-0"><i class="bi bi-journal-text me-2"></i>Research Area Management</h3>
             </div>
-            
-            <form method="post" asp-controller="Admin" asp-action="CreateTopic">
-                <div class="modal-body p-4">
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">RESEARCH TITLE</label>
-                        <input type="text" name="Title" class="form-control shadow-sm" placeholder="e.g. AI in Healthcare" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">FIELD / CATEGORY</label>
-                        <input type="text" name="Field" class="form-control shadow-sm" placeholder="e.g. Machine Learning" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">LEAD SUPERVISOR</label>
-                        <select name="SupervisorName" class="form-select shadow-sm" required>
-                            <option value="">Select Supervisor...</option>
-                            <option>Dr. Aruna Pathirana</option>
-                            <option>Prof. Samantha Perera</option>
-                            <option>Dr. Nilanthi Silva</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">SUMMARY</label>
-                        <textarea name="Summary" class="form-control shadow-sm" rows="2" required></textarea>
-                    </div>
-                    <div class="mb-0">
-                        <label class="form-label small fw-bold text-muted">PREREQUISITES</label>
-                        <textarea name="Requirements" class="form-control shadow-sm" rows="2" required></textarea>
-                    </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-custom px-4 fw-bold">Save Topic</button>
+            }
+
+            <form asp-controller="Admin" asp-action="AddResearchArea" method="post">
+                <div class="input-group mb-4 shadow-sm" style="border-radius: 8px; overflow: hidden;">
+                    <input type="text" name="NewArea" class="form-control border-0 bg-light"
+                           placeholder="Type a new research area (e.g. Machine Learning)..." required>
+                    <button class="btn btn-custom px-4 fw-bold" type="submit">Add Area</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="researchDetailModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold" id="modalTitle">Topic Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <h6 class="fw-bold text-primary mb-2">Summary</h6>
-                <p id="modalSummary" class="text-muted mb-4"></p>
-                <h6 class="fw-bold text-primary mb-2">Prerequisites</h6>
-                <p id="modalRequirements" class="text-muted mb-0"></p>
+            <h6 class="fw-bold text-muted mb-3">Current Research Areas:</h6>
+            <div class="d-flex flex-wrap gap-2">
+                @if (ViewBag.CurrentTags != null)
+                {
+                    @foreach (var tagItem in (List<string>)ViewBag.CurrentTags)
+                    {
+                        <div class="tag shadow-sm d-flex align-items-center m-0">
+                            <span class="fw-medium">@tagItem</span>
+                            <form asp-controller="Admin" asp-action="RemoveResearchArea" asp-route-areaName="@tagItem" method="post" class="d-inline m-0 p-0 ms-2">
+                                <button type="submit" class="btn-close" style="font-size: 10px;" aria-label="Remove"></button>
+                            </form>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No research areas defined yet.</p>
+                }
             </div>
         </div>
-    </div>
-</div>
-
-@section Scripts {
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function showResearchDetails(title, summary, requirements) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalSummary').innerText = summary;
-            document.getElementById('modalRequirements').innerText = requirements;
-            new bootstrap.Modal(document.getElementById('researchDetailModal')).show();
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
         }
     </script>
-}
+</body>
+</html>

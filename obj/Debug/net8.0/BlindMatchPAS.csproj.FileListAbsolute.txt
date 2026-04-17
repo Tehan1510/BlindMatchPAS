@@ -1,0 +1,10 @@
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.csproj.AssemblyReference.cache
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.AssemblyInfoInputs.cache
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.AssemblyInfo.cs
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.csproj.CoreCompileInputs.cache
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.RazorAssemblyInfo.cache
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.RazorAssemblyInfo.cs
+C:\Users\teacu\OneDrive\Desktop\BlindMatchPAS\obj\Debug\net8.0\BlindMatchPAS.sourcelink.json

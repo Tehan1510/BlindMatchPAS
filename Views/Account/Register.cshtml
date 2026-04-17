@@ -13,45 +13,97 @@
 </head>
 <body class="login-page-body">
     <div class="login-card-custom p-4" style="max-width: 450px; width: 100%;">
-        <a asp-controller="Home" asp-action="Index" class="text-muted text-decoration-none small mb-3 d-inline-block"><i class="bi bi-arrow-left"></i> Back to Welcome</a>
+        <a asp-controller="Home" asp-action="Index"
+           class="text-muted text-decoration-none small mb-3 d-inline-block">
+            <i class="bi bi-arrow-left"></i> Back to Welcome
+        </a>
         <div class="text-center mb-4 mt-2">
-            <h2 class="fw-bold"><i class="bi bi-person-plus text-success"></i> Create Account</h2>
+            <h2 class="fw-bold">
+                <i class="bi bi-person-plus text-success"></i> Create Account
+            </h2>
         </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger py-2 small mb-3">
+                @Html.ValidationSummary(true, "")
+            </div>
+        }
+
         <form asp-controller="Account" asp-action="Register" method="post" id="registerForm">
             <input type="hidden" name="Email" id="FinalEmail" />
+
             <div class="mb-3">
                 <label class="form-label fw-bold">Full Name</label>
-                <input type="text" name="FullName" class="form-control bg-light" placeholder="e.g. John Doe" required>
+                <input type="text"
+                       name="FullName"
+                       class="form-control bg-light"
+                       placeholder="e.g. John Doe"
+                       required>
             </div>
+
             <div class="mb-3">
                 <label class="form-label fw-bold">University Email</label>
                 <div class="input-group">
-                    <input type="text" id="UsernameInput" class="form-control bg-light" placeholder="username" required>
-                    <span class="input-group-text bg-secondary text-white fw-bold">@@</span>
-                    <select id="DomainSelect" class="form-select bg-light" style="max-width: 200px;" required>
-                        <option value="student.ac.nsbm.lk">student.ac.nsbm.lk</option>
-                        <option value="superviouse.ac.nsbm.lk">superviouse.ac.nsbm.lk</option>
-                        <option value="admin.ac.nsbm.lk">admin.ac.nsbm.lk</option>
+                    <input type="text"
+                           id="UsernameInput"
+                           class="form-control bg-light"
+                           placeholder="username"
+                           required>
+                    <span class="input-group-text bg-secondary text-white fw-bold">&#64;</span>
+                    <select id="DomainSelect"
+                            class="form-select bg-light"
+                            style="max-width: 220px;"
+                            required>
+                        <option value="student.nsbm.ac.lk">student.nsbm.ac.lk</option>
+                        <option value="supervisor.nsbm.ac.lk">supervisor.nsbm.ac.lk</option>
+                        <option value="admin.nsbm.ac.lk">admin.nsbm.ac.lk</option>
                     </select>
                 </div>
+                <div class="form-text text-muted">
+                    Select your role domain carefully. It determines your access level.
+                </div>
             </div>
+
             <div class="mb-3">
                 <label class="form-label fw-bold">Password</label>
-                <input type="password" name="Password" class="form-control bg-light" required>
+                <input type="password"
+                       name="Password"
+                       class="form-control bg-light"
+                       id="passwordField"
+                       placeholder="Minimum 6 characters"
+                       required>
             </div>
+
             <div class="mb-4">
                 <label class="form-label fw-bold">Confirm Password</label>
-                <input type="password" name="ConfirmPassword" class="form-control bg-light" required>
+                <input type="password"
+                       name="ConfirmPassword"
+                       class="form-control bg-light"
+                       id="confirmPasswordField"
+                       placeholder="Repeat your password"
+                       required>
+                <div id="passwordMismatch" class="text-danger small mt-1 d-none">
+                    Passwords do not match.
+                </div>
             </div>
-            <button type="submit" class="btn btn-pas-green w-100 fw-bold py-2 mb-3">Register</button>
+
+            <button type="submit" class="btn btn-pas-green w-100 fw-bold py-2 mb-3">
+                Register
+            </button>
+
+            <div class="text-center">
+                <span class="text-muted">Already have an account? </span>
+                <a asp-controller="Account" asp-action="Login"
+                   class="text-success fw-bold text-decoration-none">
+                    Login here
+                </a>
+            </div>
         </form>
     </div>
-    <script>
-            document.getElementById('registerForm').addEventListener('submit', function (e) {
-                var user = document.getElementById('UsernameInput').value.trim().replace(/\s+/g, '');
-                var domain = document.getElementById('DomainSelect').value;
-                document.getElementById('FinalEmail').value = user + '@@' + domain;
-            });
-    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
