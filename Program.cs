@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC
+// MVC only - we don't use Razor Pages
 builder.Services.AddControllersWithViews();
 
 // Database - SQL Server connectivity
@@ -74,6 +74,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Ignore the /Pages/ folder routes - MVC only
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Splash}/{id?}");
